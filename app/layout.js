@@ -1,5 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "./style.css"; // ใช้แทน import "./globals.css"; เดิม
+
+/* ...โค้ด layout เดิม... */
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

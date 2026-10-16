@@ -1,0 +1,360 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Noto+Sans+Thai:wght@400;700&display=swap');
+
+/* app/style-retro.css - ธีม retro สไตล์ Windows 95 (ขนาดใหญ่ + เอฟเฟกต์) */
+
+* {
+  box-sizing: border-box;
+}
+
+/* ---------- พื้นหลัง + จอ CRT ---------- */
+body {
+  margin: 0;
+  padding: 32px 32px 90px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'VT323', 'Noto Sans Thai', monospace;
+  font-size: 26px;
+  color: #fff;
+  text-shadow: 1px 1px 0 #000;
+  background-color: #008080;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.18) 1.5px, transparent 1.5px);
+  background-size: 6px 6px;
+  animation: drift 6s linear infinite;
+}
+
+@keyframes drift {
+  from { background-position: 0 0; }
+  to   { background-position: 60px 60px; }
+}
+
+/* เส้นสแกน + แถบแสงวิ่งลงมาแบบจอ CRT + ขอบจอมืด */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.14) 0 1px, transparent 1px 3px),
+    linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.07), transparent) 0 -160px / 100% 160px no-repeat,
+    radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.35) 100%);
+  animation: scanband 6s linear infinite, flicker 3s steps(1) infinite;
+}
+
+@keyframes scanband {
+  from { background-position: 0 0, 0 -160px, 0 0; }
+  to   { background-position: 0 0, 0 110vh, 0 0; }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  92%      { opacity: 0.85; }
+  94%      { opacity: 1; }
+}
+
+/* ---------- taskbar ---------- */
+body::after {
+  content: '▶ Start   ▣ app.exe';
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 46px;
+  padding: 7px 16px;
+  background: #c0c0c0;
+  border-top: 3px solid #fff;
+  box-shadow: 0 -1px 0 #808080;
+  color: #000;
+  text-shadow: none;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 13px;
+  line-height: 32px;
+  white-space: pre;
+  pointer-events: none;
+}
+
+/* ---------- หน้าต่าง (การ์ด) ---------- */
+.auth-box {
+  position: relative;
+  /* กว้างอย่างน้อย 560px และขยายตามความยาวเนื้อหา (เช่น ชื่อยาวๆ ใน header) */
+  width: auto;
+  min-width: min(560px, 100%);
+  max-width: 100%;
+  padding: 76px 40px 40px;
+  background: #c0c0c0;
+  color: #000;
+  text-shadow: none;
+  text-align: center;
+  border: 3px solid;
+  border-color: #fff #404040 #404040 #fff;
+  box-shadow: 0 0 0 2px #000, 12px 12px 0 rgba(0, 0, 0, 0.45);
+  animation: pop 0.45s steps(6, end) both;
+}
+
+@keyframes pop {
+  0%   { transform: scale(0.6); opacity: 0; }
+  70%  { transform: scale(1.04); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* แถบชื่อหน้าต่าง (สีไล่เลื่อนไปมา) */
+.auth-box::before {
+  content: '▣ app.exe';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  height: 36px;
+  padding: 0 14px;
+  background: linear-gradient(90deg, #000080, #1084d0, #000080);
+  background-size: 200% 100%;
+  color: #fff;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 13px;
+  line-height: 36px;
+  text-align: left;
+  animation: titlebar 5s linear infinite;
+}
+
+@keyframes titlebar {
+  from { background-position: 0 0; }
+  to   { background-position: 200% 0; }
+}
+
+/* ปุ่มมุมขวาบนของหน้าต่าง */
+.auth-box::after {
+  content: '_ □ ✕';
+  position: absolute;
+  top: 9px;
+  right: 11px;
+  padding: 0 8px;
+  background: #c0c0c0;
+  color: #000;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 11px;
+  line-height: 26px;
+  letter-spacing: 4px;
+  border: 2px solid;
+  border-color: #fff #404040 #404040 #fff;
+}
+
+/* ---------- หัวข้อ + เคอร์เซอร์กะพริบ ---------- */
+h1 {
+  margin: 0 0 30px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+h1::after {
+  content: '_';
+  margin-left: 4px;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.auth-box h1 {
+  color: #000080;
+  text-shadow: 3px 3px 0 #fff;
+  white-space: nowrap; /* header อยู่บรรทัดเดียว หน้าต่างขยายตามความยาว */
+}
+
+/* ---------- ฟอร์ม ---------- */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 22px;
+  text-align: left;
+}
+
+label {
+  font-size: 26px;
+}
+
+input {
+  width: 100%;
+  padding: 14px 16px;
+  background: #fff;
+  color: #000;
+  caret-color: #000080;
+  caret-shape: block;
+  font-family: inherit;
+  font-size: 26px;
+  border: 3px solid;
+  border-color: #404040 #fff #fff #404040;
+  border-radius: 0;
+  box-shadow: inset 2px 2px 0 #000;
+  transition: background 0.1s;
+}
+
+input::placeholder {
+  color: #808080;
+}
+
+input:focus {
+  outline: 2px dotted #000;
+  outline-offset: -7px;
+  background: #ffffe1;
+}
+
+/* ---------- ปุ่มนูน + ลูกเล่นตอน hover ---------- */
+button {
+  width: 100%;
+  padding: 16px;
+  background: #c0c0c0;
+  color: #000;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 16px;
+  cursor: pointer;
+  border: 3px solid;
+  border-color: #fff #404040 #404040 #fff;
+  border-radius: 0;
+  box-shadow: 2px 2px 0 #000;
+  text-shadow: none;
+  transition: transform 0.08s steps(2), box-shadow 0.08s steps(2);
+}
+
+button:hover {
+  background: #d4d0c8;
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 #000;
+}
+
+button:hover::before {
+  content: '▶ ';
+  animation: blink 0.6s steps(1) infinite;
+}
+
+button:active {
+  transform: translate(2px, 2px);
+  border-color: #404040 #fff #fff #404040;
+  box-shadow: inset 2px 2px 0 #000;
+}
+
+button:disabled {
+  color: #808080;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 2px 2px 0 #000;
+}
+
+.btn-logout {
+  color: #c00000;
+}
+
+/* ---------- ข้อความ Error (popup เหลืองสั่นตอนโผล่) ---------- */
+.error {
+  margin: 0 0 6px;
+  padding: 12px 14px;
+  background: #ffffe1;
+  color: #b00000;
+  text-shadow: none;
+  text-align: left;
+  font-size: 24px;
+  border: 3px solid #000;
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.4);
+  animation: shake 0.4s steps(8, end);
+}
+
+.error::before {
+  content: '⚠ ';
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%      { transform: translateX(-7px); }
+  75%      { transform: translateX(7px); }
+}
+
+p {
+  margin: 0 0 10px;
+  font-size: 26px;
+}
+
+a {
+  color: #ffff00;
+  text-decoration: underline;
+}
+
+.auth-box a {
+  color: #0000ee;
+}
+
+a:hover {
+  background: #000080;
+  color: #fff;
+  animation: blink 0.8s steps(1) infinite;
+}
+
+/* ---------- Dashboard ---------- */
+/* avatar สี่เหลี่ยมแบบ pixel เด้งขึ้นลง (ใช้เมื่อเพิ่ม div.avatar) */
+.avatar {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ff66b3;
+  color: #000;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 34px;
+  text-transform: uppercase;
+  border: 4px solid #000;
+  box-shadow: 6px 6px 0 #000;
+  animation: bounce 1s steps(2, end) infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+/* กล่องข้อมูลผู้ใช้ แบบช่องจม */
+.user-info {
+  margin: 20px 0 26px;
+  padding: 14px 16px;
+  background: #fff;
+  text-align: left;
+  border: 3px solid;
+  border-color: #404040 #fff #fff #404040;
+  box-shadow: inset 2px 2px 0 #000;
+}
+
+/* ---------- มือถือ ---------- */
+@media (max-width: 560px) {
+  body {
+    font-size: 22px;
+    padding: 16px 16px 80px;
+  }
+  .auth-box {
+    padding: 70px 20px 28px;
+  }
+  h1 {
+    font-size: 22px;
+  }
+  .auth-box h1 {
+    white-space: normal; /* จอเล็กให้ตัดบรรทัดได้ ไม่ให้ล้นจอ */
+  }
+  input, label, p {
+    font-size: 22px;
+  }
+  button {
+    font-size: 13px;
+  }
+}
+
+/* ปิดแอนิเมชันสำหรับคนที่ตั้งค่าลดการเคลื่อนไหว */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
